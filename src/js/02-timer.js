@@ -43,7 +43,7 @@ const timer = {
             const ms = timerDedline - Date.now();
             const timeComponents = convertMs(ms);
             const { days, hours, minutes, seconds } = this.refs;
-            this.refs.daysRef.textContent = addLeadinZero(timeComponents.days);
+            this.refs.daysRef.textContent = this.addLeadinZero(timeComponents.days);
             this.refs.hoursRef.textContent = this.addLeadinZero(timeComponents.hours);
             this.refs.minutesRef.textContent = this.addLeadinZero(timeComponents.minutes);
             this.refs.secondsRef.textContent = this.addLeadinZero(timeComponents.seconds);
@@ -59,10 +59,7 @@ const timer = {
   },
 };
 
-
-
-
-
+btnStart.addEventListener('click', timer.start);
 
 
 
