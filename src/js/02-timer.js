@@ -41,8 +41,8 @@ const timer = {
         const timerDedline = new Date();
         this.intervalId = setInterval(() => {
             const ms = timerDedline - Date.now();
-            const timeComponents = convertMs(ms);
-            const { days, hours, minutes, seconds } = this.refs;
+            const timeComponents = this.convertMs(ms);
+            // const { days, hours, minutes, seconds } = this.refs;
             this.refs.daysRef.textContent = this.addLeadinZero(timeComponents.days);
             this.refs.hoursRef.textContent = this.addLeadinZero(timeComponents.hours);
             this.refs.minutesRef.textContent = this.addLeadinZero(timeComponents.minutes);
@@ -59,8 +59,7 @@ const timer = {
   },
 };
 
-btnStart.addEventListener('click', timer.start);
-
+btnStart.addEventListener('click', timer.start.bind(timer));
 
 
 
