@@ -1,4 +1,4 @@
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import Notiflix from 'notiflix';
 import flatpickr from "flatpickr";
 
 import "flatpickr/dist/flatpickr.min.css";
@@ -18,7 +18,7 @@ const options = {
       timerDedline = selectedDates[0].getTime();
       const numSelectedData = selectedDates[0];
       if (numSelectedData < Date.now()) {
-          window.alert("Please choose a date in the future");
+          Notiflix.Notify.failure("Please choose a date in the future");
           btnStart.setAttribute('disabled', false);
       } else {
           btnStart.toggleAttribute('disabled');
@@ -49,7 +49,7 @@ const timer = {
         }, 1000);
     },
 
-    addLeadinZero(value) {
+    addLeadinZero(value, targetLength) {
     return String(value).padStart(targetLength);
     },
 
