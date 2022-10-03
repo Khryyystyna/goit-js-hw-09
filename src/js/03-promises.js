@@ -5,34 +5,10 @@ const refs = {
   inputDelay: document.getElementsByName('delay'),
   inputStep: document.getElementsByName('step'),
   inputAmount: document.getElementsByName('amount'),
-  // inputDelay: document.querySelector('input.delay'),
-  // inputStep: document.querySelector('input.step'),
-  // inputAmount: document.querySelector('input.amount'),
   submitBtn: document.querySelector("button"),
 };
 
 refs.form.addEventListener('submit', onSubmitFormEvent);
-
-function onSubmitFormEvent() {
-  preventDefault();
-  let numOfPosition = 0;
-  for (let i = 0; i < Number(refs.inputAmount.value); i += 1) {
-    numOfPosition += 1;
-    const deleyStepCount = Number(refs.inputDelay.value) - Number(refs.inputStep.value);
-
-    createPromise(numOfPosition, deleyStepCount)
-      .then(({ position, delay }) => {
-     Notiflix.Notify.success(`✅ Fulfilled promise ${position} in ${delay}ms`);
-  })
-  .catch(({ position, delay }) => {
-     Notiflix.Notify.failure(`❌ Rejected promise ${position} in ${delay}ms`);
-  });
-  }
-};
-
-function preventDefault(event) {
-  event.preventDefault();
-};
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
@@ -47,5 +23,26 @@ function createPromise(position, delay) {
   });
 };
 
+function onSubmitFormEvent(evt) {
+  evt.preventDefault();
+  let {
+    elements: { delay, step, amount },
+  } = evt.currentTarget;
+  let elDelay = Number(delay.value);
+  let elStep = Number(step.value);
+  let elAmount = Number(amount.value);
+  for (let position = 1; position <= elAmount; position += 1) {
+    createPromise(position, elDelay)
+      .then(({ position, delay }) => {
+     Notiflix.Notify.success(`:white_check_mark: Fulfilled promise ${position} in ${delay}ms`);
+  })
+  .catch(({ position, delay }) => {
+     Notiflix.Notify.failure(`:x: Rejected promise ${position} in ${delay}ms`);
+  });
+    elDelay += elStep;
+  }
+};
 
-
+function preventDefault(event) {
+  event.preventDefault();
+};
