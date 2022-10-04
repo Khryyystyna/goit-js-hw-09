@@ -6,14 +6,12 @@ const btnStart = document.querySelector("button[data-start]");
 const btnStop = document.querySelector("button[data-stop]");
 const body = document.querySelector("body");
 
-let timerId = {};
-
 const onClick = () => {
+      btnStart.disabled = true;
+      btnStop.disabled = false;
   timerId = setInterval(() => {
     const getCol = getRandomHexColor();
       body.style.backgroundColor = getCol;
-      btnStart.disabled = true;
-      btnStop.disabled = false;
   }, 1000);
 };
 

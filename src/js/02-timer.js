@@ -15,7 +15,8 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
       console.log(selectedDates[0]);
-      timerDedline = selectedDates[0].getTime();
+    timerDedline = selectedDates[0].getTime();
+    console.log(timerDedline)
        numSelectedData = selectedDates[0];
       if (numSelectedData < Date.now()) {
           Notiflix.Notify.failure("Please choose a date in the future");
@@ -27,7 +28,7 @@ const options = {
 };
 
       flatpickr("#datetime-picker", options);
-      const timer = {
+       const timer = {
         intervalId: null,
         refs: {
         daysRef: document.querySelector('[data-days]'),
@@ -35,10 +36,9 @@ const options = {
         minutesRef: document.querySelector('[data-minutes]'),
         secondsRef: document.querySelector('[data-seconds]'),
     },
-    start() {
-        const timerDedline = new Date();
+        start() {
         this.intervalId = setInterval(() => {
-            if(numSelectedData>= Date.now()){
+          if (numSelectedData >= Date.now()) {
             const ms = timerDedline - Date.now();
             const timeComponents = this.convertMs(ms);
             this.refs.daysRef.textContent = this.addLeadinZero(timeComponents.days);
@@ -50,9 +50,9 @@ const options = {
             }
         }, 1000);
           },
-    
-        addLeadinZero(value) {
-        return String(value).padStart(2, '0');
+
+         addLeadinZero(value) {
+          return String(value).padStart(2, '0');
           },
     
     convertMs(ms) {
@@ -67,8 +67,5 @@ const options = {
 btnStart.addEventListener('click', timer.start());
 
 const ms = numSelectedData - Date.now();
-
-
-
 
 
